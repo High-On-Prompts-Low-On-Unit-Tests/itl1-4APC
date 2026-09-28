@@ -3,3 +3,4 @@ dist/
 www/
 .env
 *.log
+backend/config/config.json
