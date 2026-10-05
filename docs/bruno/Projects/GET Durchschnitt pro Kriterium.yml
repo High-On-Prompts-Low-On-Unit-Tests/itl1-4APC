@@ -1,0 +1,39 @@
+info:
+  name: GET Durchschnitt pro Kriterium
+  type: http
+  seq: 6
+  tags:
+    - Projects
+
+http:
+  method: GET
+  url: "{{baseUrl}}/projects/:id/durchschnitt"
+  params:
+    - name: id
+      value: "1"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{baseUrl}}/projects/:id/durchschnitt"
+      method: GET
+      params:
+        - name: id
+          value: "1"
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      body:
+        type: text
+        data: ""

@@ -1,0 +1,51 @@
+info:
+  name: PUT Team aktualisieren
+  type: http
+  seq: 4
+  tags:
+    - Teams
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/teams/:id"
+  params:
+    - name: id
+      value: "{{teamId}}"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "klasse": "4BHITL"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+examples:
+  - name: 200 Response
+    description: OK
+    request:
+      url: "{{baseUrl}}/teams/:id"
+      method: PUT
+      params:
+        - name: id
+          value: "{{teamId}}"
+          type: path
+      body:
+        type: json
+        data: |-
+          {
+            "klasse": "4BHITL"
+          }
+    response:
+      status: 200
+      statusText: OK
+      body:
+        type: text
+        data: ""

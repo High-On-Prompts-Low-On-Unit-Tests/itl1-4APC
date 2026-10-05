@@ -4,7 +4,7 @@ Klasse: <Klasse></klasse>
 
 ## Setup
 
-Backend:
+Backend (nativ):
 
 ```Shell
 cd backend
@@ -15,6 +15,14 @@ npx sequelize-cli db:seed:all
 pnpm start
 ```
 
+Alternativ alles (MySQL, Adminer, Backend) über Docker, inkl. Live-Reload bei Code-Änderungen:
+
+```Shell
+docker compose up -d
+```
+
+Container heißen `itl1_4apc-db-1`, `itl1_4apc-adminer-1`, `itl1_4apc-backend-1`. Migrationen/Seeder beim ersten Start einmalig ausführen: `docker compose exec backend npx sequelize-cli db:migrate` (bzw. `db:seed:all`).
+
 Frontend:
 
 ```Shell
@@ -23,7 +31,7 @@ pnpm install
 ionic serve
 ```
 
-Eigene `config/config.json` lokal aus `config/config.example.json` ableiten, nicht committen.
+Eigene `config/config.js` lokal aus `config/config.example.js` ableiten, nicht committen. `host` ist per `DB_HOST`-Env-Var überschreibbar (Default `127.0.0.1`, Docker Compose setzt `db`).
 
 ## Einheit 1: Installation
 

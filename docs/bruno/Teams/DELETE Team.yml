@@ -1,0 +1,39 @@
+info:
+  name: DELETE Team
+  type: http
+  seq: 5
+  tags:
+    - Teams
+
+http:
+  method: DELETE
+  url: "{{baseUrl}}/teams/:id"
+  params:
+    - name: id
+      value: "{{teamId}}"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+examples:
+  - name: 204 Response
+    description: No Content
+    request:
+      url: "{{baseUrl}}/teams/:id"
+      method: DELETE
+      params:
+        - name: id
+          value: "{{teamId}}"
+          type: path
+    response:
+      status: 204
+      statusText: No Content
+      body:
+        type: text
+        data: ""

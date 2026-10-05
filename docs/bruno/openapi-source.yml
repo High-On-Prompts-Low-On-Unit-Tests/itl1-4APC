@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: Bewertungsapp
+  version: "1.0"
+servers:
+  - url: http://localhost:3000
+paths:
+  /teams:
+    get:
+      tags: [Teams]
+      summary: GET alle Teams
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Teams]
+      summary: POST neues Team
+      requestBody:
+        content:
+          application/json:
+            example: { name: "Team Postman", klasse: "4AHITL" }
+      responses:
+        "201": { description: Created }
+  /teams/{id}:
+    get:
+      tags: [Teams]
+      summary: GET Team per ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+          example: 1
+      responses:
+        "200": { description: OK }
+    put:
+      tags: [Teams]
+      summary: PUT Team aktualisieren
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            example: { klasse: "4BHITL" }
+      responses:
+        "200": { description: OK }
+    delete:
+      tags: [Teams]
+      summary: DELETE Team
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+          example: 1
+      responses:
+        "204": { description: No Content }
+  /projects:
+    get:
+      tags: [Projects]
+      summary: GET alle Projekte
+      responses:
+        "200": { description: OK }
+    post:
+      tags: [Projects]
+      summary: POST neues Projekt
+      requestBody:
+        content:
+          application/json:
+            example: { teamId: 1, titel: "Postman-Testprojekt", beschreibung: "Angelegt zu Testzwecken", praesentiertAm: "2026-06-12" }
+      responses:
+        "201": { description: Created }
+  /projects/{id}:
+    get:
+      tags: [Projects]
+      summary: GET Projekt per ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+          example: 1
+      responses:
+        "200": { description: OK }
+    put:
+      tags: [Projects]
+      summary: PUT Projekt aktualisieren
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            example: { titel: "Dezentrale Wahl-App v2" }
+      responses:
+        "200": { description: OK }
+    delete:
+      tags: [Projects]
+      summary: DELETE Projekt
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+          example: 99
+      responses:
+        "204": { description: No Content }
+  /projects/{id}/durchschnitt:
+    get:
+      tags: [Projects]
+      summary: GET Durchschnitt pro Kriterium
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+          example: 1
+      responses:
+        "200": { description: OK }
+  /evaluations:
+    post:
+      tags: [Evaluations]
+      summary: POST neue Bewertung
+      requestBody:
+        content:
+          application/json:
+            example: { projectId: 2, criterionId: 1, jurorId: 1, score: 6, comment: "Per Bruno angelegt" }
+      responses:
+        "201": { description: Created }

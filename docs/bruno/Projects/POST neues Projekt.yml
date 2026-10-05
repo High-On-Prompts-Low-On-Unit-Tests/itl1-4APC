@@ -1,0 +1,55 @@
+info:
+  name: POST neues Projekt
+  type: http
+  seq: 2
+  tags:
+    - Projects
+
+http:
+  method: POST
+  url: "{{baseUrl}}/projects"
+  body:
+    type: json
+    data: |-
+      {
+        "teamId": 1,
+        "titel": "Postman-Testprojekt",
+        "beschreibung": "Angelegt zu Testzwecken",
+        "praesentiertAm": "2026-06-12"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        bru.setVar("projectId", res.body.id);
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{baseUrl}}/projects"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "teamId": 1,
+            "titel": "Postman-Testprojekt",
+            "beschreibung": "Angelegt zu Testzwecken",
+            "praesentiertAm": "2026-06-12"
+          }
+    response:
+      status: 201
+      statusText: Created
+      body:
+        type: text
+        data: ""

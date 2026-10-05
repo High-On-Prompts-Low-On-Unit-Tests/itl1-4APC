@@ -1,0 +1,33 @@
+info:
+  name: POST Bewertung doppelt - 409 (Negativtest)
+  type: http
+  seq: 3
+  tags:
+    - Evaluations
+
+http:
+  method: POST
+  url: "{{baseUrl}}/evaluations"
+  body:
+    type: json
+    data: |-
+      {
+        "projectId": 1,
+        "criterionId": 1,
+        "jurorId": 1,
+        "score": 5
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "409"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

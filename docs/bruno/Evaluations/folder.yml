@@ -1,0 +1,6 @@
+info:
+  name: Evaluations
+  type: folder
+
+request:
+  auth: inherit

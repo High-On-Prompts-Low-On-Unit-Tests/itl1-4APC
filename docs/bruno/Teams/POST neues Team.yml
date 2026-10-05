@@ -1,0 +1,51 @@
+info:
+  name: POST neues Team
+  type: http
+  seq: 2
+  tags:
+    - Teams
+
+http:
+  method: POST
+  url: "{{baseUrl}}/teams"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Team Postman",
+        "klasse": "4AHITL"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        bru.setVar("teamId", res.body.id);
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+examples:
+  - name: 201 Response
+    description: Created
+    request:
+      url: "{{baseUrl}}/teams"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "name": "Team Postman",
+            "klasse": "4AHITL"
+          }
+    response:
+      status: 201
+      statusText: Created
+      body:
+        type: text
+        data: ""

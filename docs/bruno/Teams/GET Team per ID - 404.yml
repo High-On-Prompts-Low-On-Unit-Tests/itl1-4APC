@@ -1,0 +1,28 @@
+info:
+  name: GET Team per ID - 404 (Negativtest)
+  type: http
+  seq: 6
+  tags:
+    - Teams
+
+http:
+  method: GET
+  url: "{{baseUrl}}/teams/:id"
+  params:
+    - name: id
+      value: "999"
+      type: path
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "404"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

@@ -1,0 +1,32 @@
+info:
+  name: POST Projekt mit ungueltiger teamId - 404 (Negativtest)
+  type: http
+  seq: 7
+  tags:
+    - Projects
+
+http:
+  method: POST
+  url: "{{baseUrl}}/projects"
+  body:
+    type: json
+    data: |-
+      {
+        "teamId": 999,
+        "titel": "Sollte scheitern",
+        "praesentiertAm": "2026-06-12"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "404"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
