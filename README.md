@@ -44,10 +44,10 @@ Eigene `config/config.json` lokal aus `config/config.example.json` ableiten, nic
 
 ## Einheit 4: Backend-Routen
 
-- [ ] CRUD für Team und Project
-- [ ] POST-Route für Evaluation inkl. Validierung
-- [ ] Aggregations-Route: Durchschnitt der Punktzahl pro Projekt und Kriterium
-- [ ] Kurze Endpunkt-Dokumentation (Methode, Pfad, Body, Rückgabe) unten in diesem README oder in `docs/`
+- [X] CRUD für Team und Project
+- [X] POST-Route für Evaluation inkl. Validierung
+- [X] Aggregations-Route: Durchschnitt der Punktzahl pro Projekt und Kriterium
+- [X] Kurze Endpunkt-Dokumentation (Methode, Pfad, Body, Rückgabe): `docs/aufgabe4.md`
 
 ## Einheit 5: Postman-Test
 
@@ -71,9 +71,22 @@ Eigene `config/config.json` lokal aus `config/config.example.json` ableiten, nic
 
 ## Endpunkt-Dokumentation (laufend ergänzen)
 
-| Methode | Pfad   | Body | Rückgabe         |
-| ------- | ------ | ---- | ----------------- |
-| GET     | /teams | –   | Liste aller Teams |
+Vollständige Tabelle: `docs/aufgabe4.md`
+
+| Methode | Pfad                     | Body                                                 | Rückgabe                                     |
+| ------- | ------------------------ | ----------------------------------------------------- | ----------------------------------------------- |
+| GET     | /teams                   | –                                                      | Liste aller Teams                               |
+| GET     | /teams/:id                | –                                                      | Ein Team, 404 wenn nicht gefunden               |
+| POST    | /teams                   | `{ name, klasse }`                                     | 201 + neues Team, 400 bei fehlenden Feldern      |
+| PUT     | /teams/:id                | beliebige Team-Felder                                  | aktualisiertes Team, 404 wenn nicht gefunden     |
+| DELETE  | /teams/:id                | –                                                      | 204, 404 wenn nicht gefunden                    |
+| GET     | /projects                | –                                                      | Liste aller Projekte inkl. Team                 |
+| GET     | /projects/:id             | –                                                      | Ein Projekt inkl. Team, 404 wenn nicht gefunden |
+| POST    | /projects                | `{ teamId, titel, beschreibung?, praesentiertAm }`     | 201, 400 bei fehlenden Feldern, 404 bei ungültiger teamId |
+| PUT     | /projects/:id              | beliebige Projekt-Felder                               | aktualisiertes Projekt, 404 wenn nicht gefunden |
+| DELETE  | /projects/:id              | –                                                      | 204, 404 wenn nicht gefunden                    |
+| GET     | /projects/:id/durchschnitt | –                                                      | Durchschnittspunktzahl gruppiert nach Kriterium |
+| POST    | /evaluations              | `{ projectId, criterionId, jurorId, score, comment? }` | 201, 400/404/409 je nach Fehlerfall             |
 
 ## Bekannte Einschränkungen
 
