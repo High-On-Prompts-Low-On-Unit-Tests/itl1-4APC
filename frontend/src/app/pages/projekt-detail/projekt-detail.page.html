@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/projekte-liste"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ projekt()?.titel }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="projekt() as p">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{ p.Team?.name }} ({{ p.Team?.klasse }})</ion-card-subtitle>
+      <ion-card-title>{{ p.titel }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ p.beschreibung }}</p>
+      <p>Präsentiert am: {{ p.praesentiertAm }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-list-header>Bisherige Bewertungen (Durchschnitt pro Kriterium)</ion-list-header>
+    <ion-item *ngFor="let bewertung of bewertungen()">
+      <ion-label>
+        <h3>{{ bewertung.Criterion?.name || ('Kriterium #' + bewertung.criterionId) }}</h3>
+      </ion-label>
+      <ion-note slot="end">{{ bewertung.durchschnitt }}</ion-note>
+    </ion-item>
+    <ion-item *ngIf="bewertungen().length === 0">
+      <ion-label>Noch keine Bewertungen vorhanden</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

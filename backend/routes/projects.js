@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { fn, col } = require('sequelize');
 const db = require('../models');
-const { Project, Team, Evaluation } = db;
+const { Project, Team, Evaluation, Criterion } = db;
 
 // alle Projekte inkl. Team
 router.get('/', async (req, res) => {
@@ -52,7 +52,8 @@ router.get('/:id/durchschnitt', async (req, res) => {
   const ergebnis = await Evaluation.findAll({
     where: { projectId: req.params.id },
     attributes: ['criterionId', [fn('AVG', col('score')), 'durchschnitt']],
-    group: ['criterionId']
+    include: [{ model: Criterion, attributes: ['name'] }],
+    group: ['criterionId', 'Criterion.id']
   });
   res.json(ergebnis);
 });

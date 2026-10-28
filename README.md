@@ -4,6 +4,8 @@ Klasse: <Klasse></klasse>
 
 ## Setup
 
+Node-Version wird über `.mise.toml` gepinnt (`mise install` im Repo-Root, falls [mise](https://mise.jdx.dev/) installiert ist).
+
 Backend (nativ):
 
 ```Shell
@@ -66,8 +68,8 @@ Eigene `config/config.js` lokal aus `config/config.example.js` ableiten, nicht c
 
 ## Einheit 6: IONIC-Frontend
 
-- [ ] Projektliste mit Team-Zuordnung
-- [ ] Detailansicht eines Projekts mit bisherigen Bewertungen
+- [X] Projektliste mit Team-Zuordnung: `frontend/src/app/pages/projekte-liste`
+- [X] Detailansicht eines Projekts mit bisherigen Bewertungen: `frontend/src/app/pages/projekt-detail`, siehe `docs/aufgabe6.md`
 - [ ] API-Service vollständig an eigenes Backend angebunden
 
 ## Einheit 7: Login und Endabgabe
