@@ -1,3 +1,41 @@
 [tools]
 node = "24.22.1"
 pnpm = "latest"
+
+[tasks.db]
+description = "Start MySQL + Adminer via Docker"
+dir = "{{config_root}}"
+run = '''
+#!/usr/bin/env bash
+docker compose up -d db adminer
+echo "Warte auf MySQL..."
+until docker exec itl1_4apc-db-1 mysqladmin ping -h 127.0.0.1 -uroot -pgeheim123 --silent >/dev/null 2>&1; do
+  sleep 1
+done
+echo "MySQL ist bereit."
+'''
+
+[tasks.backend]
+description = "Backend dev server"
+dir = "{{config_root}}/backend"
+depends = ["db"]
+run = '''
+#!/usr/bin/env bash
+PORT=3000
+PID=$(netstat -ano | grep ":$PORT " | grep LISTENING | awk '{print $5}' | sort -u | head -n1)
+if [ -n "$PID" ]; then
+  echo "Port $PORT ist belegt (PID $PID) - wird beendet..."
+  taskkill //F //PID "$PID" >/dev/null 2>&1 || true
+  sleep 1
+fi
+pnpm start
+'''
+
+[tasks.frontend]
+description = "Frontend dev server"
+dir = "{{config_root}}/frontend"
+run = "pnpm start"
+
+[tasks.dev]
+description = "Backend + Frontend parallel"
+depends = ["backend", "frontend"]
